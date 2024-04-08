@@ -46,16 +46,31 @@ def fabrik(target, joint_positions, joint_lengths, tolerance=0.01, max_iteration
     joint_angles = calculate_joint_angles(joint_positions)
     return joint_positions, joint_angles
 
-# Example usage
-target = np.array([10, 10])
-initial_joint_positions = [np.array([0, 0]), np.array([5, 5]), np.array([10, 0])]
-joint_lengths = [23, 15, 1]
+target_x = float(input("Enter the x-coordinate of the target position: "))
+target_y = float(input("Enter the y-coordinate of the target position: "))
+target_position = np.array([target_x, target_y])
 
-result = fabrik(target, initial_joint_positions, joint_lengths)
+# Input for initial joint positions
+joints = 3
+initial_joint_positions = []
+for i in range(joints):
+    joint_x = float(input(f"Enter the x-coordinate of joint {i+1}: "))
+    joint_y = float(input(f"Enter the y-coordinate of joint {i+1}: "))
+    initial_joint_positions.append(np.array([joint_x, joint_y]))
+
+
+joint_lengths = [23,15,1]
+
+
+result = fabrik(target_position, initial_joint_positions, joint_lengths)
 if result is not None:
     joint_positions, joint_angles = result
     print("Joint positions:", joint_positions)
     print("Optimal joint angles:", joint_angles)
 else:
-    print("Target unreachable")
+    print("unreachable")
+
+
+
+
 
