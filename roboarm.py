@@ -46,31 +46,31 @@ def fabrik(target, joint_positions, joint_lengths, tolerance=0.01, max_iteration
     joint_angles = calculate_joint_angles(joint_positions)
     return joint_positions, joint_angles
 
+# Input for target position
 target_x = float(input("Enter the x-coordinate of the target position: "))
 target_y = float(input("Enter the y-coordinate of the target position: "))
-target_position = np.array([target_x, target_y])
+target_z = float(input("Enter the z-coordinate of the target position: "))
+target_position = np.array([target_x, target_y, target_z])
 
 # Input for initial joint positions
-joints = 3
+num_joints = 4  # Number of joints for a 4-joint robot
 initial_joint_positions = []
-for i in range(joints):
+for i in range(num_joints):
     joint_x = float(input(f"Enter the x-coordinate of joint {i+1}: "))
     joint_y = float(input(f"Enter the y-coordinate of joint {i+1}: "))
-    initial_joint_positions.append(np.array([joint_x, joint_y]))
+    joint_z = float(input(f"Enter the z-coordinate of joint {i+1}: "))
+    initial_joint_positions.append(np.array([joint_x, joint_y, joint_z]))
 
+# Joint lengths
+joint_lengths = [23, 15, 1]
 
-joint_lengths = [23,15,1]
-
-
+# Call the FABRIK algorithm
 result = fabrik(target_position, initial_joint_positions, joint_lengths)
+
+# Process the result
 if result is not None:
     joint_positions, joint_angles = result
     print("Joint positions:", joint_positions)
-    print("Optimal joint angles:", joint_angles)
+    print("Optimal joint angles (in radians):", joint_angles)
 else:
     print("unreachable")
-
-
-
-
-
